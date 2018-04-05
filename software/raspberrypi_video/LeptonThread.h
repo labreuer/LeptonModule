@@ -31,10 +31,11 @@ signals:
   void updateText(QString);
   void updateImage(QImage);
 
-private:
+public:
 
   QImage myImage;
 
+private:
   uint8_t result[PACKET_SIZE*PACKETS_PER_FRAME];
 //  uint16_t* frameBuffer;
   uint16_t frameBuffer[FRAME_SIZE_UINT16*4];

@@ -11,6 +11,7 @@
 
 #include "LeptonThread.h"
 #include "MyLabel.h"
+#include "SaveImage.h"
 
 int main( int argc, char **argv )
 {
@@ -18,7 +19,7 @@ int main( int argc, char **argv )
 	QApplication a( argc, argv );
 	
 	QWidget *myWidget = new QWidget;
-	myWidget->setGeometry(400, 300, 340, 290);
+	myWidget->setGeometry(200, 100, 340, 290);
 
 	//create an image placeholder for myLabel
 	//fill the top left corner with red, just bcuz
@@ -47,10 +48,12 @@ int main( int argc, char **argv )
 	
 	//connect ffc button to the thread's ffc action
 	QObject::connect(button1, SIGNAL(clicked()), thread, SLOT(performFFC()));
+	SaveImage *saveImage = new SaveImage("Save Image", myWidget, &thread->myImage);
+	saveImage->setGeometry(320/2+70,290-35,100,30);
+	QObject::connect(saveImage, SIGNAL(clicked()), saveImage, SLOT(save()));
 	thread->start();
 	
 	myWidget->show();
 
 	return a.exec();
 }
-
