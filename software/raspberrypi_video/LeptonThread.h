@@ -26,19 +26,26 @@ public:
 
 public slots:
   void performFFC();
+  void setMinimum(int v) { _min = v; }
+  void setMaximum(int v) { _max = v; }
 
 signals:
   void updateText(QString);
   void updateImage(QImage);
+  void updateMinimum(int v);
+  void updateMaximum(int v);
 
 public:
 
   QImage myImage;
+  static constexpr uint16_t MaximumPixelValue = (2<<14) - 1;
 
 private:
   uint8_t result[PACKET_SIZE*PACKETS_PER_FRAME];
 //  uint16_t* frameBuffer;
   uint16_t frameBuffer[FRAME_SIZE_UINT16*4];
+  volatile uint16_t _min = 0;
+  volatile uint16_t _max = MaximumPixelValue;
 
 };
 

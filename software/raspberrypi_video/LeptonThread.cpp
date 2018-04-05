@@ -88,6 +88,11 @@ void LeptonThread::run()
 		//We only finalize the image for emission once all four segments are in.
 		if(segNum != 4)continue; 	
 		
+		if (_min != 0) minValue = _min;
+		if (_max != MaximumPixelValue) maxValue = _max;
+		emit updateMinimum(minValue);
+		emit updateMaximum(maxValue);
+
 		//If the difference between Max and Min is 0, we need to get a new frame before emitting.
 		float diff = maxValue - minValue;
 		if(diff != 0){
@@ -99,9 +104,11 @@ void LeptonThread::run()
 				//Skip the header of each line.
 				if(i % PACKET_SIZE_UINT16 < 2) continue; 
 				
-				value = (frameBuffer[i] - minValue) * scale;
+				value = frameBuffer[i] > minValue
+					? (frameBuffer[i] - minValue) * scale
+					: 0;
 				const int *colormap = colormap_ironblack;
-				if(value > 255) value = 255;	
+				if(value > 255) value = 255;
 				color = qRgb(colormap[3*value], colormap[3*value+1], colormap[3*value+2]);
 			
 				column = (i % PACKET_SIZE_UINT16 ) - 2;
