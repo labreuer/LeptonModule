@@ -70,6 +70,14 @@ int main( int argc, char **argv )
 	maxValue->setGeometry(Width - SliderWidth - 40, VideoHeight, 40, 40);
 	QObject::connect(thread, SIGNAL(updateMaximum(int)), maxValue, SLOT(setNum(int)));
 
+	QLabel *realMinValue = new QLabel(myWidget);
+	realMinValue->setGeometry(SliderWidth, VideoHeight+40, 40, 40);
+	QObject::connect(thread, SIGNAL(updateRealMinimum(int)), realMinValue, SLOT(setNum(int)));
+
+	QLabel *realMaxValue = new QLabel(myWidget);
+	realMaxValue->setGeometry(Width - SliderWidth - 40, VideoHeight+40, 40, 40);
+	QObject::connect(thread, SIGNAL(updateRealMaximum(int)), realMaxValue, SLOT(setNum(int)));
+
 	// sliders for min/max
 	const uint16_t MaxValue = LeptonThread::MaximumPixelValue;
 	QSlider *minIntensity = new QSlider(Qt::Vertical, myWidget);

@@ -88,6 +88,8 @@ void LeptonThread::run()
 		//We only finalize the image for emission once all four segments are in.
 		if(segNum != 4)continue; 	
 		
+		emit updateRealMinimum(minValue);
+		emit updateRealMaximum(maxValue);
 		if (_min != 0) minValue = _min;
 		if (_max != MaximumPixelValue) maxValue = _max;
 		emit updateMinimum(minValue);

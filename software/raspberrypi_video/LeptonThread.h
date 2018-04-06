@@ -34,6 +34,8 @@ signals:
   void updateImage(QImage);
   void updateMinimum(int v);
   void updateMaximum(int v);
+  void updateRealMaximum(int v);
+  void updateRealMinimum(int v);
 
 public:
 
