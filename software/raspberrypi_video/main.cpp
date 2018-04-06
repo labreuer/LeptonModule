@@ -21,6 +21,9 @@ int main( int argc, char **argv )
 	const int VideoWidth = 320;
 	const int VideoHeight = 240;
 	const int BufferWidth = 10;
+	const int BufferHeight = BufferWidth;
+	const int LabelHeight = 20;
+	const int LabelWidth = 40;
 	const int Width = VideoWidth + 2*BufferWidth + 2*SliderWidth;
 	//create the app
 	QApplication a( argc, argv );
@@ -63,19 +66,19 @@ int main( int argc, char **argv )
 
 	// min/max labels
 	QLabel *minValue = new QLabel(myWidget);
-	minValue->setGeometry(SliderWidth, VideoHeight, 40, 40);
+	minValue->setGeometry(SliderWidth, VideoHeight+BufferHeight, LabelWidth, LabelHeight);
 	QObject::connect(thread, SIGNAL(updateMinimum(int)), minValue, SLOT(setNum(int)));
 
 	QLabel *maxValue = new QLabel(myWidget);
-	maxValue->setGeometry(Width - SliderWidth - 40, VideoHeight, 40, 40);
+	maxValue->setGeometry(Width - SliderWidth - LabelWidth, VideoHeight+BufferHeight, LabelWidth, LabelHeight);
 	QObject::connect(thread, SIGNAL(updateMaximum(int)), maxValue, SLOT(setNum(int)));
 
 	QLabel *realMinValue = new QLabel(myWidget);
-	realMinValue->setGeometry(SliderWidth, VideoHeight+40, 40, 40);
+	realMinValue->setGeometry(SliderWidth, VideoHeight+BufferHeight+LabelHeight, LabelWidth, LabelHeight);
 	QObject::connect(thread, SIGNAL(updateRealMinimum(int)), realMinValue, SLOT(setNum(int)));
 
 	QLabel *realMaxValue = new QLabel(myWidget);
-	realMaxValue->setGeometry(Width - SliderWidth - 40, VideoHeight+40, 40, 40);
+	realMaxValue->setGeometry(Width - SliderWidth - LabelWidth, VideoHeight+BufferHeight+LabelHeight, LabelWidth, LabelHeight);
 	QObject::connect(thread, SIGNAL(updateRealMaximum(int)), realMaxValue, SLOT(setNum(int)));
 
 	// sliders for min/max
